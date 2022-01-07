@@ -1,0 +1,44 @@
+#adminmenu .toplevel_page_printy6-for-woocommerce-dashboard img {
+	width: 36px;
+	position: relative;
+	top: -10px;
+}
+
+.pt6-class-href {
+	text-decoration: none;
+}
+
+.pt6-class-ml-auto {
+	margin-left: auto;
+}
+
+.printy6-admin {
+	position: relative;
+}
+
+.pt6-class-haeder-logo {
+	height: 32px;
+	display: block;
+}
+
+.pt6-class-header {
+	left: 160px;
+	background: #fff;
+	box-sizing: border-box;
+	position: fixed;
+	width: calc(100% - 160px);
+	top: 32px;
+	z-index: 1001;
+}
+
+.pt6-class-header.is-scrolled {
+	box-shadow: 0 8px 8px 0 rgb(85 93 102 / 30%);
+}
+
+.pt6-class-header-content {
+	display: flex;
+	align-items: center;
+	min-height: 60px;
+	padding: 0px 16px;
+	border-bottom: 1px solid rgb(229 231 235);
+}
