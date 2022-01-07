@@ -12,6 +12,8 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		protected static $writeable_properties = array();
 		protected $modules;
 
+		public $isConnect;
+
 		const VERSION    								= '1.2.2';
 		const PREFIX     								= 'pt6wc_';
 		const DEBUG_MODE 								= true;
@@ -44,20 +46,18 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 
 			$this->modules = array(
 			);
+			
+			$woocommercePrinty6Settings = PT6_Base::get_settings();
+			$this->isConnect = isset($woocommercePrinty6Settings['access_token']);
 
 		}
-
-
-		/*
-		 * Static methods
-		 */
 
 		/**
 		 * Enqueues CSS, JavaScript, etc
 		 *
 		 * @mvc Controller
 		 */
-		public static function load_resources() {
+		public function load_resources() {
 			wp_register_style(
 				self::PREFIX . 'global-styles',
 				plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ),
@@ -101,13 +101,18 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 
 			if ( is_admin() ) {
 				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_CONNECT ){
-					wp_enqueue_style( self::PREFIX . 'admin-styles' );
-					wp_enqueue_script( self::PREFIX . 'connect-script' );
 				}
 	
 				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
-					wp_enqueue_style( self::PREFIX . 'admin-styles' );
-					wp_enqueue_script( self::PREFIX . 'dashboard-script' );
+					if($this->isConnect) {
+						// has connected
+						wp_enqueue_style( self::PREFIX . 'admin-styles' );
+						wp_enqueue_script( self::PREFIX . 'dashboard-script' );
+					} else {
+						// not connect yet
+						wp_enqueue_style( self::PREFIX . 'admin-styles' );
+						wp_enqueue_script( self::PREFIX . 'connect-script' );
+					}
 				}
 			}
 		}
@@ -211,8 +216,8 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		 * @mvc Controller
 		 */
 		public function register_hook_callbacks() {
-			add_action( 'wp_enqueue_scripts',    __CLASS__ . '::load_resources' );
-			add_action( 'admin_enqueue_scripts', __CLASS__ . '::load_resources' );
+			add_action( 'wp_enqueue_scripts',    		array( $this, 'load_resources' ) );
+			add_action( 'admin_enqueue_scripts',    array( $this, 'load_resources' ) );
 
 			// 添加 侧边栏 入口
 			add_action( 'admin_menu', 							array( $this, 'register_admin_menu_page' ) );
@@ -227,41 +232,35 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
      * Register admin menu pages
      */
 		public function register_admin_menu_page() {
-			// PT6_Base::update_settings([], true);
-			$woocommercePrinty6Settings = PT6_Base::get_settings();
-			$isConnect = isset($woocommercePrinty6Settings['access_token']);
-			
-			add_menu_page(
-				"Printy6 Dashboard",
-				"Printy6",
-				self::CAPABILITY,
-				self::MENU_SLUG_DASHBOARD,
-				false,
-				PT6_Base::get_asset_url() . 'images/printy6-menu-icon.png',
-				58
-			);
-
-			if(!$isConnect) {
-				add_submenu_page( 
-					self::MENU_SLUG_DASHBOARD,
-					// 'woocommerce', 
+			if(!$this->isConnect) {
+				add_menu_page(
 					"Printy6 Connect",
-					"Connect",
+					"Printy6",
 					self::CAPABILITY,
 					self::MENU_SLUG_DASHBOARD,
 					__CLASS__ . '::connectPage',
+					PT6_Base::get_asset_url() . 'images/printy6-menu-icon.png',
+					58
 				);
-			}
-
-			if($isConnect) {
-				add_submenu_page( 
-					self::MENU_SLUG_DASHBOARD,
+			} else {
+				add_menu_page(
 					"Printy6 Dashboard",
-					"Dashboard",
+					"Printy6",
 					self::CAPABILITY,
 					self::MENU_SLUG_DASHBOARD,
 					__CLASS__ . '::dashboardPage',
+					PT6_Base::get_asset_url() . 'images/printy6-menu-icon.png',
+					58
 				);
+
+				// add_submenu_page( 
+				// 	self::MENU_SLUG_DASHBOARD,
+				// 	"Printy6 Dashboard",
+				// 	"Dashboard",
+				// 	self::CAPABILITY,
+				// 	self::MENU_SLUG_DASHBOARD,
+				// 	__CLASS__ . '::dashboardPage',
+				// );
 	
 				// add_submenu_page( 
 				// 	self::MENU_SLUG_DASHBOARD,
@@ -325,11 +324,9 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		 */
 		public function init() {
 			try {
-				$woocommercePrinty6Settings = PT6_Base::get_settings();
-				$isConnect = isset($woocommercePrinty6Settings['access_token']);
-				// if(!$isConnect) {
+				if(!$this->isConnect) {
 					add_action( 'admin_notices', __CLASS__ . '::admin_notice_connect' );
-				// }
+				}
 
 				// hiden notice
 				if ( is_admin() ) {
@@ -400,7 +397,7 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		 * @return string
 		 */
 		public static function admin_notice_connect() {
-			$href = get_home_url() . '/wp-admin/admin.php?page=' . self::MENU_SLUG_DASHBOARD;
+			$href = get_home_url() . '/wp-admin/admin.php?page=' . self::MENU_SLUG_CONNECT;
 			?>
 				<div class="notice notice-warning is-dismissible">
 					<p>
@@ -448,6 +445,7 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 					$sections = is_array( $sections ) ? $sections : array( $sections );
 					?>
 						<div>
+							<?php echo json_encode(PT6_Base::get_settings()); ?>
 							<div class="pt6-class-header">
 								<div class="pt6-class-header-content">
 									<div class="pt6-text-xl">

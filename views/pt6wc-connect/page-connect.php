@@ -1,8 +1,5 @@
-<div class="wrap printy6-admin">
-  <div>
-    <h1 style="padding: 0;"></h1>
-    <div id="pt6wc-app-container"></div>
-  </div>
+<div class="wrap printy6-admin" style="margin-top: 76px;">
+  <div id="pt6wc-app-container"></div>
   <script type="text/javascript">
     if(!window.printy6_for_woocommerce_info) {
       window.printy6_for_woocommerce_info = {
