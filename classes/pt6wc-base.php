@@ -100,12 +100,12 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 			wp_enqueue_style( self::PREFIX . 'global-styles' );
 
 			if ( is_admin() ) {
-				if( $_GET['page'] === self::MENU_SLUG_CONNECT ){
+				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_CONNECT ){
 					wp_enqueue_style( self::PREFIX . 'admin-styles' );
 					wp_enqueue_script( self::PREFIX . 'connect-script' );
 				}
 	
-				if( $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
+				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
 					wp_enqueue_style( self::PREFIX . 'admin-styles' );
 					wp_enqueue_script( self::PREFIX . 'dashboard-script' );
 				}
@@ -333,11 +333,11 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 
 				// hiden notice
 				if ( is_admin() ) {
-					if( $_GET['page'] === self::MENU_SLUG_CONNECT ){
+					if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_CONNECT ){
 						add_action('admin_head', array( $this, 'hide_notice' ));
 					}
 		
-					if( $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
+					if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
 						add_action('admin_head', array( $this, 'hide_notice' ));
 					}
 				}
@@ -443,7 +443,7 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		public function embed_page_header()
 		{
 			if ( is_admin() ) {
-				if( $_GET['page'] === self::MENU_SLUG_DASHBOARD ) {
+				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ) {
 					$sections = wc_admin_get_breadcrumbs();
 					$sections = is_array( $sections ) ? $sections : array( $sections );
 					?>
