@@ -452,7 +452,7 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 								<div class="pt6-class-header-content">
 									<div class="pt6-text-xl">
 									<img src="<?php echo plugins_url( 'assets/images/full-logo.svg', dirname( __FILE__ ) ); ?>" class="pt6-class-haeder-logo" alt="printy6-connect-woocommerce"></div>
-									<a href="<?php echo esc_ur('https://www.printy6.com/dashboard/'); ?>" class="pt6-class-href pt6-class-ml-auto" target="_blank" rel="noreferrer">
+									<a href="<?php echo esc_url('https://www.printy6.com/dashboard/'); ?>" class="pt6-class-href pt6-class-ml-auto" target="_blank" rel="noreferrer">
 										<button class="pt6-outline-0 pt6-inline-flex pt6-items-center pt6-rounded-md pt6-font-sans pt6-font-medium focus:pt6-outline-none focus:pt6-ring-2 focus:pt6-ring-offset-2 pt6-text-sm pt6-px-3 pt6-py-2 pt6-text-emerald-600 pt6-border pt6-border-emerald-600 pt6-bg-white hover:pt6-bg-emerald-50 hover:pt6-border-emerald-600 focus:pt6-ring-emerald-600 focus:pt6-bg-emerald-50">Open Printy6</button>
 									</a>
 								</div>
