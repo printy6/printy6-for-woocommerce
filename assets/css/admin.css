@@ -31,6 +31,21 @@
 	z-index: 1001;
 }
 
+@media (min-width: 783px) and (max-width: 960px) {
+	.pt6-class-header {
+		left: 36px;
+		width: calc(100% - 36px);
+	}
+}
+
+@media (max-width: 782px) {
+	.pt6-class-header {
+		left: 0px;
+    top: 46px;
+		width: 100%;
+	}
+}
+
 .pt6-class-header.is-scrolled {
 	box-shadow: 0 8px 8px 0 rgb(85 93 102 / 30%);
 }

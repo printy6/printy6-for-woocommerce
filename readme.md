@@ -4,7 +4,7 @@ Donate link: https://www.printy6.com/
 Tags: woocommerce, printy6, drop shipping, shipping, shipping rates, fulfillment, printing, fedex, carriers, checkout, t-shirts
 Requires at least: 5.3
 Tested up to: 5.8
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 5.6
@@ -78,6 +78,12 @@ These are our [Standard shipping rates](https://www.printy6.com/shipping) that a
 = Is this plugin free? =
 
 Printy6 all features are totally free, you just need pay when you get sales, there is no inventory risk and starting cost for your bussiness.
+
+== Screenshots ==
+
+1. Printy6 full category list
+2. Printy6 shoes category list
+3. Printy6 mockup designer
 
 == Changelog ==
 

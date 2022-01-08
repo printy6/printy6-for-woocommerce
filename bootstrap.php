@@ -3,7 +3,7 @@
 	Plugin Name: Printy6 - Print on demand
 	Plugin URI: https://www.printy6.com
 	Description: Create products with your design for yourself or sell everywhere, we’ll fulfill your orders for you
-	Version: 1.0.0
+	Version: 1.0.1
 	Author: Printy6
 	License: GPL2 http://www.gnu.org/licenses/gpl-2.0.html
 	Text Domain: printy6
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'PT6WC_NAME',                 		'Printy6 integration for woocommerce' );
 define( 'PT6WC_TEST',                 		false );
-define( 'PT6WC_VERSION',              		'1.0.0' );
+define( 'PT6WC_VERSION',              		'1.0.1' );
 define( 'PT6WC_API_DOMAIN',           		'https://www.printy6.com/api/open/v1' );
 define( 'PT6WC_BRAND_NAME',           		'Printy6' );
 define( 'PT6WC_REQUIRED_PHP_VERSION', 		'5.3' );                          									// because of get_called_class()

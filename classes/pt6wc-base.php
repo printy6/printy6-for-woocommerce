@@ -14,12 +14,11 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 
 		public $isConnect;
 
-		const VERSION    								= '1.2.2';
+		const VERSION    								= '1.0.1';
 		const PREFIX     								= 'pt6wc_';
 		const DEBUG_MODE 								= true;
 		
 		const MENU_TITLE_TOP 						= 'Printy6';
-		const MENU_SLUG_CONNECT 				= 'printy6-for-woocommerce-connect';
 		const MENU_SLUG_DASHBOARD 			= 'printy6-for-woocommerce-dashboard';
 		const MENU_SLUG_ORDER 					= 'printy6-for-woocommerce-order';
 		const MENU_SLUG_PRODUCT 				= 'printy6-for-woocommerce-product';
@@ -100,9 +99,6 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 			wp_enqueue_style( self::PREFIX . 'global-styles' );
 
 			if ( is_admin() ) {
-				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_CONNECT ){
-				}
-	
 				if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
 					if($this->isConnect) {
 						// has connected
@@ -330,10 +326,6 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 
 				// hiden notice
 				if ( is_admin() ) {
-					if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_CONNECT ){
-						add_action('admin_head', array( $this, 'hide_notice' ));
-					}
-		
 					if( $_GET && isset($_GET['page']) && $_GET['page'] === self::MENU_SLUG_DASHBOARD ){
 						add_action('admin_head', array( $this, 'hide_notice' ));
 					}
@@ -397,7 +389,7 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 		 * @return string
 		 */
 		public static function admin_notice_connect() {
-			$href = get_home_url() . '/wp-admin/admin.php?page=' . self::MENU_SLUG_CONNECT;
+			$href = get_home_url() . '/wp-admin/admin.php?page=' . self::MENU_SLUG_DASHBOARD;
 			?>
 				<div class="notice notice-warning is-dismissible">
 					<p>
@@ -445,7 +437,6 @@ if ( ! class_exists( 'Printy6_Base' ) ) {
 					$sections = is_array( $sections ) ? $sections : array( $sections );
 					?>
 						<div>
-							<?php echo json_encode(PT6_Base::get_settings()); ?>
 							<div class="pt6-class-header">
 								<div class="pt6-class-header-content">
 									<div class="pt6-text-xl">
